@@ -26,10 +26,11 @@ namespace UnitTest
 		TEST_METHOD(TestMethodT)
 		{
 			// Arrange
-			std::vector<int> vec = { -1, 2, -3, 4, -5 };
+			const int size = 5;
+			int arr[size] = { -1, 2, -3, 4, -5 };
 
 			// Act
-			int result = countNegativeElementsT(vec);
+			int result = countNegativeElementsT(arr, size);
 
 			// Assert
 			Assert::AreEqual(3, result);

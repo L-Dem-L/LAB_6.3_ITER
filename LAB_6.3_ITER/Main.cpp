@@ -1,6 +1,5 @@
 #include <iostream>
 #include <iomanip>
-#include <vector>
 
 template <typename T>
 void printArray(const T arr[], const int size) {
@@ -22,29 +21,26 @@ int countNegativeElements(const int arr[], const int size) {
 }
 
 template <typename T>
-int countNegativeElementsT(const std::vector<T>& arr) {
+int countNegativeElementsT(const T arr[], const int size) {
     int count = 0;
-    for (const auto& element : arr) {
-        if (element < 0) {
-            ++count;
-        }
+    for (int i = 0; i < size; i++) {
+        count += (arr[i] < 0 ? 1 : 0);
     }
-    std::cout << "Number of negative elements in vector <T>: " << count << std::endl;
+
+    std::cout << "Number of negative elements in array <T>: " << count << std::endl;
     return count;
 }
 
 int main() {
     int arr[] = { -1, 2, 3, -4, 5 };
-    const int arrSize = std::size(arr);
+    const int arrSize = sizeof(arr) / sizeof(arr[0]);
 
     printArray(arr, arrSize);
 
     int result = countNegativeElements(arr, arrSize);
     std::cout << "Number of negative elements in array: " << result << std::endl;
 
-    std::vector<int> vec(arr, arr + arrSize);
-
-    int resultVector = countNegativeElementsT(vec);
+    int resultArrayT = countNegativeElementsT(arr, arrSize);
 
     return 0;
 }
