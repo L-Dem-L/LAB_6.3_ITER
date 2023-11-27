@@ -2,14 +2,8 @@
 #include <iomanip>
 #include <vector>
 
-void fillArray(int arr[], int size) {
-    std::cout << "Enter " << size << " elements for the array:\n";
-    for (int i = 0; i < size; i++) {
-        std::cin >> arr[i];
-    }
-}
-
-void printArray(const int arr[], int size) {
+template <typename T>
+void printArray(const T arr[], const int size) {
     std::cout << "Array: ";
     for (int i = 0; i < size; i++) {
         std::cout << arr[i] << std::setw(4);
@@ -40,28 +34,17 @@ int countNegativeElementsT(const std::vector<T>& arr) {
 }
 
 int main() {
-    int size;
+    int arr[] = { -1, 2, 3, -4, 5 };
+    const int arrSize = std::size(arr);
 
-    std::cout << "Enter the size of the array: ";
-    std::cin >> size;
+    printArray(arr, arrSize);
 
-    if (size <= 0) {
-        std::cerr << "Invalid array size\n";
-        return 1;
-    }
-
-    int* arr = new int[size];
-
-    fillArray(arr, size);
-    printArray(arr, size);
-
-    int result = countNegativeElements(arr, size);
+    int result = countNegativeElements(arr, arrSize);
     std::cout << "Number of negative elements in array: " << result << std::endl;
 
-    std::vector<int> vec(arr, arr + size);
-    int resultVector = countNegativeElementsT(vec);
+    std::vector<int> vec(arr, arr + arrSize);
 
-    delete[] arr;
+    int resultVector = countNegativeElementsT(vec);
 
     return 0;
 }
