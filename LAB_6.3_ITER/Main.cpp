@@ -1,8 +1,31 @@
 #include <iostream>
 #include <iomanip>
 
+void fillArray(int arr[], int size) {
+    std::cout << "Enter " << size << " elements for the array:\n";
+    for (int i = 0; i < size; i++) {
+        std::cin >> arr[i];
+    }
+}
+
+void printArray(const int arr[], int size) {
+    std::cout << "Array: ";
+    for (int i = 0; i < size; i++) {
+        std::cout << arr[i] << std::setw(4);
+    }
+    std::cout << std::endl;
+}
+
 template <typename T>
-void printArray(const T arr[], const int size) {
+void fillArray(T arr[], int size) {
+    std::cout << "Enter " << size << " elements for the array <T>:\n";
+    for (int i = 0; i < size; i++) {
+        std::cin >> arr[i];
+    }
+}
+
+template <typename T>
+void printArray(const T arr[], int size) {
     std::cout << "Array: ";
     for (int i = 0; i < size; i++) {
         std::cout << arr[i] << std::setw(4);
@@ -32,15 +55,32 @@ int countNegativeElementsT(const T arr[], const int size) {
 }
 
 int main() {
-    int arr[] = { -1, 2, 3, -4, 5 };
-    const int arrSize = sizeof(arr) / sizeof(arr[0]);
+    int size;
 
-    printArray(arr, arrSize);
+    std::cout << "Enter the size of the array: ";
+    std::cin >> size;
 
-    int result = countNegativeElements(arr, arrSize);
+    if (size <= 0) {
+        std::cerr << "Invalid array size\n";
+        return 1;
+    }
+
+    int* arr = new int[size];
+
+    fillArray(arr, size);
+    printArray(arr, size);
+
+    double* arrDouble = new double[size];
+    fillArray(arrDouble, size);
+    printArray(arrDouble, size);
+
+    int result = countNegativeElements(arr, size);
     std::cout << "Number of negative elements in array: " << result << std::endl;
 
-    int resultArrayT = countNegativeElementsT(arr, arrSize);
+    int resultArrayT = countNegativeElementsT(arr, size);
+
+    delete[] arr;
+    delete[] arrDouble;
 
     return 0;
 }
